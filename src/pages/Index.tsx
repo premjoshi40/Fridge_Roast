@@ -3,6 +3,7 @@ import { PhotoUpload } from "@/components/PhotoUpload";
 import { RoastResults } from "@/components/RoastResults"; 
 import { Card, CardContent } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Sparkles } from "lucide-react";
 import fridgeHero from "@/assets/fridge-hero.jpg";
 
 const Index = () => {
@@ -104,8 +105,10 @@ const Index = () => {
                   <TooltipTrigger asChild>
                     <Card className="hover-scale cursor-help border-primary/20 bg-card/50 backdrop-blur-sm">
                       <CardContent className="p-4">
-                        <div className="flex items-center gap-2">
-                          <div className="text-2xl">🤖</div>
+                        <div className="flex items-center gap-3">
+                          <div className="p-2 rounded-lg bg-primary/10">
+                            <Sparkles className="w-6 h-6 text-primary" />
+                          </div>
                           <div>
                             <p className="text-sm font-semibold">How it works?</p>
                             <p className="text-xs text-muted-foreground">Hover to learn more</p>
