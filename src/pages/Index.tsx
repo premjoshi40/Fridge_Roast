@@ -20,39 +20,22 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/10">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/70 to-background z-10" />
+      <div className="relative overflow-hidden bg-gradient-roast">
+        <div className="absolute inset-0 opacity-20">
           <img 
             src={fridgeHero}
             alt="Fridge contents"
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover"
           />
         </div>
-        
-        {/* Decorative Elements */}
-        <div className="absolute top-10 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 right-10 w-40 h-40 bg-accent/10 rounded-full blur-3xl" />
-        
-        <div className="relative container mx-auto px-4 py-20 md:py-28 text-center z-20">
-          <div className="inline-block mb-4 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm">
-            <span className="text-sm font-semibold text-primary">AI-Powered Analysis</span>
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-            <span className="flex items-center justify-center gap-3 md:gap-4 bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
-              <Refrigerator className="w-12 h-12 md:w-16 md:h-16 text-primary" /> 
-              Fridge Analyzer 
-              <Sparkles className="w-12 h-12 md:w-16 md:h-16 text-accent" />
-            </span>
+        <div className="relative container mx-auto px-4 py-16 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-6 animate-roast-reveal flex items-center justify-center gap-3">
+            <Refrigerator className="w-10 h-10 md:w-14 md:h-14" /> Fridge Analyzer <Sparkles className="w-10 h-10 md:w-14 md:h-14" />
           </h1>
-          
-          <p className="text-xl md:text-3xl font-semibold text-foreground mb-4 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <p className="text-xl md:text-2xl text-primary-foreground/90 mb-4 max-w-3xl mx-auto">
             Get honest, actionable feedback on your refrigerator organization
           </p>
-          
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
             Upload 3+ photos of your fridge from different angles for a comprehensive analysis. 
             We'll help you optimize storage, reduce waste, and maintain food freshness.
           </p>
