@@ -20,8 +20,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-roast">
-        <div className="absolute inset-0 opacity-20">
+      <div className="relative overflow-hidden bg-muted/30">
+        <div className="absolute inset-0 opacity-30">
           <img 
             src={fridgeHero}
             alt="Fridge contents"
