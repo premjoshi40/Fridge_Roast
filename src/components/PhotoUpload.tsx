@@ -1,34 +1,73 @@
 import { useState, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Camera, Upload, X } from "lucide-react";
-import cameraIcon from "@/assets/camera-roast-icon.png";
+import { Camera, Upload, X, Image as ImageIcon } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface PhotoUploadProps {
-  onPhotoSelected: (photo: File) => void;
+  onPhotosSelected: (photos: File[]) => void;
 }
 
-export const PhotoUpload = ({ onPhotoSelected }: PhotoUploadProps) => {
+export const PhotoUpload = ({ onPhotosSelected }: PhotoUploadProps) => {
+  const [photos, setPhotos] = useState<File[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
   const [dragActive, setDragActive] = useState(false);
-  const [preview, setPreview] = useState<string | null>(null);
+  const { toast } = useToast();
+  
+  const MIN_PHOTOS = 3;
 
   // Hidden inputs for reliable file selection across browsers/iframes
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const cameraInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleFiles = useCallback(
-    (files: FileList | null) => {
-      if (files && files[0]) {
-        const file = files[0];
-        if (file.type.startsWith("image/")) {
-          const url = URL.createObjectURL(file);
-          setPreview(url);
-          onPhotoSelected(file);
+  const handleFilesSelect = useCallback((files: FileList | File[]) => {
+    const fileArray = Array.from(files);
+    const imageFiles = fileArray.filter(file => file.type.startsWith('image/'));
+    
+    if (imageFiles.length === 0) {
+      toast({
+        title: "Invalid file type",
+        description: "Please select image files",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const newPhotos = [...photos, ...imageFiles];
+    const newPreviews = [...previews];
+    
+    imageFiles.forEach(file => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        newPreviews.push(reader.result as string);
+        if (newPreviews.length === newPhotos.length) {
+          setPreviews(newPreviews);
         }
-      }
-    },
-    [onPhotoSelected],
-  );
+      };
+      reader.readAsDataURL(file);
+    });
+    
+    setPhotos(newPhotos);
+  }, [photos, previews, toast]);
+
+  const removePhoto = (index: number) => {
+    const newPhotos = photos.filter((_, i) => i !== index);
+    const newPreviews = previews.filter((_, i) => i !== index);
+    setPhotos(newPhotos);
+    setPreviews(newPreviews);
+  };
+
+  const handleAnalyze = () => {
+    if (photos.length < MIN_PHOTOS) {
+      toast({
+        title: "More photos needed",
+        description: `Please upload at least ${MIN_PHOTOS} photos for accurate analysis`,
+        variant: "destructive",
+      });
+      return;
+    }
+    onPhotosSelected(photos);
+  };
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -45,30 +84,14 @@ export const PhotoUpload = ({ onPhotoSelected }: PhotoUploadProps) => {
       e.preventDefault();
       e.stopPropagation();
       setDragActive(false);
-      handleFiles(e.dataTransfer.files);
+      const files = e.dataTransfer.files;
+      if (files.length > 0) handleFilesSelect(files);
     },
-    [handleFiles],
+    [handleFilesSelect],
   );
-
-  const clearPreview = () => {
-    setPreview(null);
-  };
 
   const triggerFileInput = () => fileInputRef.current?.click();
   const triggerCamera = () => cameraInputRef.current?.click();
-
-  if (preview) {
-    return (
-      <Card className="relative overflow-hidden animate-roast-reveal">
-        <CardContent className="p-0">
-          <img src={preview} alt="Fridge preview" className="w-full h-64 object-cover" />
-          <Button variant="destructive" size="icon" className="absolute top-2 right-2" onClick={clearPreview}>
-            <X className="h-4 w-4" />
-          </Button>
-        </CardContent>
-      </Card>
-    );
-  }
 
   return (
     <Card
@@ -78,40 +101,103 @@ export const PhotoUpload = ({ onPhotoSelected }: PhotoUploadProps) => {
       onDragOver={handleDrag}
       onDrop={handleDrop}
     >
-      <CardContent className="flex flex-col items-center justify-center p-8 text-center">
-        {/* Hidden inputs for robust uploads */}
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={(e) => handleFiles(e.target.files)}
-        />
-        <input
-          ref={cameraInputRef}
-          type="file"
-          accept="image/*"
-          capture="environment"
-          className="hidden"
-          onChange={(e) => handleFiles(e.target.files)}
-        />
+      <CardContent className="p-6">
+        <div className="space-y-4">
+          <div className="flex justify-center">
+            <div className="p-4 bg-primary/10 rounded-full">
+              <ImageIcon className="h-12 w-12 text-primary" />
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <h3 className="text-lg font-semibold mb-2">Upload Fridge Photos</h3>
+            <p className="text-sm text-muted-foreground mb-2">
+              Upload at least {MIN_PHOTOS} photos from different angles
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Currently uploaded: {photos.length} photo{photos.length !== 1 ? 's' : ''}
+            </p>
+          </div>
 
-        <img src={cameraIcon} alt="Camera" className="w-16 h-16 mb-4 opacity-80" />
-        <h3 className="text-lg font-semibold mb-2">Ready to get roasted?</h3>
-        <p className="text-muted-foreground mb-6">
-          Take a photo of your fridge and prepare for some honest feedback about your food choices.
-        </p>
-        <div className="flex gap-3 flex-wrap justify-center">
-          <Button variant="hero" onClick={triggerCamera} className="gap-2">
-            <Camera className="h-5 w-5" />
-            Open Camera
-          </Button>
-          <Button variant="roast" onClick={triggerFileInput} className="gap-2">
-            <Upload className="h-5 w-5" />
-            Upload Photo
-          </Button>
+          {previews.length > 0 && (
+            <div className="grid grid-cols-3 gap-3 max-w-md mx-auto">
+              {previews.map((preview, index) => (
+                <div key={index} className="relative group">
+                  <img
+                    src={preview}
+                    alt={`Fridge ${index + 1}`}
+                    className="w-full h-24 object-cover rounded-lg"
+                  />
+                  <button
+                    onClick={() => removePhoto(index)}
+                    className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="flex gap-3 justify-center flex-wrap">
+            <Button
+              variant="hero"
+              onClick={triggerCamera}
+              className="gap-2"
+            >
+              <Camera className="h-4 w-4" />
+              Take Photo
+            </Button>
+
+            <Button
+              variant="roast"
+              onClick={triggerFileInput}
+              className="gap-2"
+            >
+              <Upload className="h-4 w-4" />
+              Add Photos
+            </Button>
+
+            {photos.length > 0 && (
+              <Button
+                variant={photos.length >= MIN_PHOTOS ? "default" : "outline"}
+                onClick={handleAnalyze}
+                className="gap-2"
+              >
+                Analyze {photos.length >= MIN_PHOTOS ? `(${photos.length} photos)` : `(Need ${MIN_PHOTOS - photos.length} more)`}
+              </Button>
+            )}
+          </div>
+
+          {/* Hidden inputs for robust uploads */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            multiple
+            className="hidden"
+            onChange={(e) => {
+              const files = e.target.files;
+              if (files && files.length > 0) handleFilesSelect(files);
+            }}
+          />
+          
+          <input
+            ref={cameraInputRef}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) handleFilesSelect([file]);
+            }}
+          />
+
+          <p className="text-xs text-muted-foreground text-center mt-2">
+            Or drag and drop images here
+          </p>
         </div>
-        <p className="text-xs text-muted-foreground mt-4">Or drag and drop an image here</p>
       </CardContent>
     </Card>
   );

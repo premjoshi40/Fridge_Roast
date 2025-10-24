@@ -5,14 +5,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import fridgeHero from "@/assets/fridge-hero.jpg";
 
 const Index = () => {
-  const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
+  const [selectedPhotos, setSelectedPhotos] = useState<File[]>([]);
 
-  const handlePhotoSelected = (photo: File) => {
-    setSelectedPhoto(photo);
+  const handlePhotosSelected = (photos: File[]) => {
+    setSelectedPhotos(photos);
   };
 
   const handleReset = () => {
-    setSelectedPhoto(null);
+    setSelectedPhotos([]);
   };
 
   return (
@@ -28,14 +28,14 @@ const Index = () => {
         </div>
         <div className="relative container mx-auto px-4 py-16 text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-6 animate-roast-reveal">
-            🔥 Fridge Roaster 🔥
+            🥗 Fridge Analyzer 📊
           </h1>
           <p className="text-xl md:text-2xl text-primary-foreground/90 mb-4 max-w-3xl mx-auto">
-            The brutally honest app that calls out your expired groceries
+            Get honest, actionable feedback on your refrigerator organization
           </p>
           <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
-            Take a photo of your fridge and get roasted harder than your forgotten vegetables. 
-            Because someone needs to tell you the truth about that 3-week-old yogurt.
+            Upload 3+ photos of your fridge from different angles for a comprehensive analysis. 
+            We'll help you optimize storage, reduce waste, and maintain food freshness.
           </p>
         </div>
       </div>
@@ -43,9 +43,9 @@ const Index = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto">
-          {!selectedPhoto ? (
+          {selectedPhotos.length === 0 ? (
             <div className="space-y-8">
-              <PhotoUpload onPhotoSelected={handlePhotoSelected} />
+              <PhotoUpload onPhotosSelected={handlePhotosSelected} />
               
               {/* How It Works */}
               <Card>
@@ -54,23 +54,23 @@ const Index = () => {
                   <div className="grid md:grid-cols-3 gap-6 text-center">
                     <div className="space-y-2">
                       <div className="text-4xl">📸</div>
-                      <h3 className="font-semibold">1. Snap Your Fridge</h3>
+                      <h3 className="font-semibold">1. Upload 3+ Photos</h3>
                       <p className="text-sm text-muted-foreground">
-                        Take a photo of your fridge contents. Be brave.
+                        Take multiple angles of your fridge for best results.
                       </p>
                     </div>
                     <div className="space-y-2">
                       <div className="text-4xl">🤖</div>
                       <h3 className="font-semibold">2. AI Analysis</h3>
                       <p className="text-sm text-muted-foreground">
-                        Our AI judges your food choices without mercy.
+                        Our AI analyzes organization, freshness, and storage.
                       </p>
                     </div>
                     <div className="space-y-2">
-                      <div className="text-4xl">🔥</div>
-                      <h3 className="font-semibold">3. Get Roasted</h3>
+                      <div className="text-4xl">✅</div>
+                      <h3 className="font-semibold">3. Get Feedback</h3>
                       <p className="text-sm text-muted-foreground">
-                        Receive honest feedback and reduce food waste.
+                        Receive actionable insights to improve your fridge.
                       </p>
                     </div>
                   </div>
@@ -78,7 +78,7 @@ const Index = () => {
               </Card>
             </div>
           ) : (
-            <RoastResults photo={selectedPhoto} onReset={handleReset} />
+            <RoastResults photos={selectedPhotos} onReset={handleReset} />
           )}
         </div>
       </div>
@@ -87,10 +87,10 @@ const Index = () => {
       <footer className="border-t bg-muted/50 py-8 mt-12">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
           <p className="mb-2">
-            <span className="font-semibold text-primary">Fridge Roaster</span> - Fighting food waste with humor, one roast at a time.
+            <span className="font-semibold text-primary">Fridge Analyzer</span> - Helping you maintain a healthier, more organized fridge.
           </p>
           <p className="text-sm">
-            Made with 🔥 and a lot of expired groceries for inspiration.
+            Made with 💚 to help reduce food waste and improve food storage.
           </p>
         </div>
       </footer>
