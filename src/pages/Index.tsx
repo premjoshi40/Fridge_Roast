@@ -3,7 +3,7 @@ import { PhotoUpload } from "@/components/PhotoUpload";
 import { RoastResults } from "@/components/RoastResults"; 
 import { Card, CardContent } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Refrigerator, Brain } from "lucide-react";
 import fridgeHero from "@/assets/fridge-hero.jpg";
 
 const Index = () => {
@@ -30,7 +30,7 @@ const Index = () => {
         </div>
         <div className="relative container mx-auto px-4 py-16 text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-6 animate-roast-reveal flex items-center justify-center gap-3">
-            ❄️ Fridge Analyzer <Sparkles className="w-10 h-10 md:w-14 md:h-14" />
+            <Refrigerator className="w-10 h-10 md:w-14 md:h-14" /> Fridge Analyzer <Sparkles className="w-10 h-10 md:w-14 md:h-14" />
           </h1>
           <p className="text-xl md:text-2xl text-primary-foreground/90 mb-4 max-w-3xl mx-auto">
             Get honest, actionable feedback on your refrigerator organization
@@ -107,7 +107,7 @@ const Index = () => {
                       <CardContent className="p-4">
                         <div className="flex items-center gap-3">
                           <div className="p-2 rounded-lg bg-primary/10">
-                            <Sparkles className="w-6 h-6 text-primary" />
+                            <Brain className="w-6 h-6 text-primary" />
                           </div>
                           <div>
                             <p className="text-sm font-semibold">How it works?</p>
