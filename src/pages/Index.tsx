@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PhotoUpload } from "@/components/PhotoUpload";
 import { RoastResults } from "@/components/RoastResults"; 
 import { Card, CardContent } from "@/components/ui/card";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import fridgeHero from "@/assets/fridge-hero.jpg";
 
 const Index = () => {
@@ -95,16 +96,22 @@ const Index = () => {
                 Made with 💚 to help reduce food waste and improve food storage.
               </p>
             </div>
-            <Card className="max-w-xs">
-              <CardContent className="p-4">
-                <h3 className="font-semibold text-sm mb-2">How It Works</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  Uses advanced computer vision and AI models to analyze multiple angles of your refrigerator. 
-                  The system processes images through pattern recognition algorithms to identify food items, 
-                  storage practices, and organization patterns, then generates actionable insights.
-                </p>
-              </CardContent>
-            </Card>
+            <TooltipProvider>
+              <Tooltip delayDuration={200}>
+                <TooltipTrigger asChild>
+                  <div className="text-sm text-muted-foreground cursor-help underline decoration-dotted">
+                    How it works?
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs p-4" side="left">
+                  <p className="text-xs leading-relaxed">
+                    Uses advanced computer vision and AI models to analyze multiple angles of your refrigerator. 
+                    The system processes images through pattern recognition algorithms to identify food items, 
+                    storage practices, and organization patterns, then generates actionable insights.
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
       </footer>
