@@ -29,8 +29,8 @@ const Index = () => {
           />
         </div>
         <div className="relative container mx-auto px-4 py-16 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-6 animate-roast-reveal">
-            🥗 Fridge Analyzer 📊
+          <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-6 animate-roast-reveal flex items-center justify-center gap-3">
+            🥗 Fridge Analyzer <Sparkles className="w-10 h-10 md:w-14 md:h-14" />
           </h1>
           <p className="text-xl md:text-2xl text-primary-foreground/90 mb-4 max-w-3xl mx-auto">
             Get honest, actionable feedback on your refrigerator organization
