@@ -29,13 +29,13 @@ const Index = () => {
           />
         </div>
         <div className="relative container mx-auto px-4 py-16 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-6 animate-roast-reveal flex items-center justify-center gap-3">
+          <h1 className="text-4xl md:text-6xl font-bold text-foreground drop-shadow-lg mb-6 animate-roast-reveal flex items-center justify-center gap-3">
             <Refrigerator className="w-10 h-10 md:w-14 md:h-14" /> Fridge Analyzer <Sparkles className="w-10 h-10 md:w-14 md:h-14" />
           </h1>
-          <p className="text-xl md:text-2xl text-primary-foreground/90 mb-4 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-foreground/90 drop-shadow-md mb-4 max-w-3xl mx-auto">
             Get honest, actionable feedback on your refrigerator organization
           </p>
-          <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground drop-shadow-md max-w-2xl mx-auto">
             Upload 3+ photos of your fridge from different angles for a comprehensive analysis. 
             We'll help you optimize storage, reduce waste, and maintain food freshness.
           </p>
