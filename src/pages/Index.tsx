@@ -125,12 +125,9 @@ const Index = () => {
               </TooltipProvider>
             </div>
             
-            <div className="border-t border-border/50 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+            <div className="border-t border-border/50 pt-6 flex justify-center items-center text-sm text-muted-foreground">
               <p className="flex items-center gap-2">
                 Made with <span className="text-lg animate-pulse">💚</span> to help reduce food waste
-              </p>
-              <p className="text-xs opacity-70">
-                © 2024 Fridge Analyzer. All rights reserved.
               </p>
             </div>
           </div>
