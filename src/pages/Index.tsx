@@ -85,33 +85,54 @@ const Index = () => {
       </div>
 
       {/* Footer */}
-      <footer className="border-t bg-muted/50 py-8 mt-12">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div className="text-center md:text-left text-muted-foreground">
-              <p className="mb-2">
-                <span className="font-semibold text-primary">Fridge Analyzer</span> - Helping you maintain a healthier, more organized fridge.
+      <footer className="relative border-t bg-gradient-to-br from-muted/30 via-muted/50 to-muted/30 py-12 mt-16 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-subtle opacity-50" />
+        <div className="relative container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
+              <div className="text-center md:text-left space-y-3">
+                <h3 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                  Fridge Analyzer
+                </h3>
+                <p className="text-muted-foreground max-w-sm">
+                  Helping you maintain a healthier, more organized fridge through AI-powered insights.
+                </p>
+              </div>
+              
+              <TooltipProvider>
+                <Tooltip delayDuration={200}>
+                  <TooltipTrigger asChild>
+                    <Card className="hover-scale cursor-help border-primary/20 bg-card/50 backdrop-blur-sm">
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-2">
+                          <div className="text-2xl">🤖</div>
+                          <div>
+                            <p className="text-sm font-semibold">How it works?</p>
+                            <p className="text-xs text-muted-foreground">Hover to learn more</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs p-4" side="left">
+                    <p className="text-xs leading-relaxed">
+                      Uses advanced computer vision and AI models to analyze multiple angles of your refrigerator. 
+                      The system processes images through pattern recognition algorithms to identify food items, 
+                      storage practices, and organization patterns, then generates actionable insights.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+            
+            <div className="border-t border-border/50 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+              <p className="flex items-center gap-2">
+                Made with <span className="text-lg animate-pulse">💚</span> to help reduce food waste
               </p>
-              <p className="text-sm">
-                Made with 💚 to help reduce food waste and improve food storage.
+              <p className="text-xs opacity-70">
+                © 2024 Fridge Analyzer. All rights reserved.
               </p>
             </div>
-            <TooltipProvider>
-              <Tooltip delayDuration={200}>
-                <TooltipTrigger asChild>
-                  <div className="text-sm text-muted-foreground cursor-help underline decoration-dotted">
-                    How it works?
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent className="max-w-xs p-4" side="left">
-                  <p className="text-xs leading-relaxed">
-                    Uses advanced computer vision and AI models to analyze multiple angles of your refrigerator. 
-                    The system processes images through pattern recognition algorithms to identify food items, 
-                    storage practices, and organization patterns, then generates actionable insights.
-                  </p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
           </div>
         </div>
       </footer>
