@@ -85,13 +85,27 @@ const Index = () => {
 
       {/* Footer */}
       <footer className="border-t bg-muted/50 py-8 mt-12">
-        <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p className="mb-2">
-            <span className="font-semibold text-primary">Fridge Analyzer</span> - Helping you maintain a healthier, more organized fridge.
-          </p>
-          <p className="text-sm">
-            Made with 💚 to help reduce food waste and improve food storage.
-          </p>
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div className="text-center md:text-left text-muted-foreground">
+              <p className="mb-2">
+                <span className="font-semibold text-primary">Fridge Analyzer</span> - Helping you maintain a healthier, more organized fridge.
+              </p>
+              <p className="text-sm">
+                Made with 💚 to help reduce food waste and improve food storage.
+              </p>
+            </div>
+            <Card className="max-w-xs">
+              <CardContent className="p-4">
+                <h3 className="font-semibold text-sm mb-2">How It Works</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Uses advanced computer vision and AI models to analyze multiple angles of your refrigerator. 
+                  The system processes images through pattern recognition algorithms to identify food items, 
+                  storage practices, and organization patterns, then generates actionable insights.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </footer>
     </div>
